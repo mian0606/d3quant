@@ -135,6 +135,7 @@ function updateTooltipPosition(event) {
 let svg;
 let xScale;
 let yScale;
+let rScale;
 function renderScatterPlot(data, commits) {
   const width = 1000;
   const height = 600;
@@ -150,18 +151,18 @@ function renderScatterPlot(data, commits) {
     height: height - margin.top - margin.bottom,
   };
 
-  const svg = d3
+  svg = d3
     .select('#chart')
     .append('svg')
     .attr('viewBox', `0 0 ${width} ${height}`);
 
-  const xScale = d3
+  xScale = d3
     .scaleTime()
     .domain(d3.extent(commits, d => d.datetime))
     .range([usableArea.left, usableArea.right])
     .nice();
 
-  const yScale = d3
+  yScale = d3
     .scaleLinear()
     .domain([0, 24])
     .range([usableArea.bottom, usableArea.top]);
@@ -169,7 +170,7 @@ function renderScatterPlot(data, commits) {
   //scaling
   const [minLines, maxLines] = d3.extent(commits, d => d.totalLines);
 
-  const rScale = d3
+  rScale = d3
     .scaleSqrt()
     .domain([minLines, maxLines])
     .range([2, 30]);
