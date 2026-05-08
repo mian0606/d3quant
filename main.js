@@ -178,18 +178,16 @@ function renderScatterPlot(data, commits) {
 
   const sortedCommits = d3.sort(commits, d => -d.totalLines);
 
+  const brush = d3.brush()
+    .on('start brush end', brushed);
+
   svg.append('g')
-    .attr('class', 'gridlines')
-    .attr('transform', `translate(${usableArea.left},0)`)
-    .call(
-      d3.axisLeft(yScale)
-        .tickFormat('')
-        .tickSize(-usableArea.width)
-    );
+    .attr('class', 'brush')
+    .call(brush);
 
-  // dots
-  const dots = svg.append('g');
-
+  const dots = svg.append('g')
+    .attr('class', 'dots');
+  
   dots.selectAll('circle')
     .data(sortedCommits)
     .join('circle')
