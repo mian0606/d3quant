@@ -42,6 +42,8 @@ function processCommits(data) {
 let data = await loadData();
 let commits = processCommits(data);
 
+
+
 function renderCommitInfo(data, commits) {
   const dl = d3.select('#stats').append('dl').attr('class', 'stats');
 
@@ -130,7 +132,9 @@ function updateTooltipPosition(event) {
   tooltip.style.top = event.clientY + 10 + 'px';
 }
 
-
+let svg;
+let xScale;
+let yScale;
 function renderScatterPlot(data, commits) {
   const width = 1000;
   const height = 600;
